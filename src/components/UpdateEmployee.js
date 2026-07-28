@@ -1,0 +1,100 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getEmployeeById, updateEmployee } from "../services/employeeService";
+import { Employee } from "../model/employee";
+
+const UpdateEmployee = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [employee, setEmployee] = useState(new Employee());
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getEmployeeById(id)
+      .then((response) => {
+        setEmployee(response.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Could not load employee details.");
+        setLoading(false);
+      });
+  }, [id]);
+
+  const handleChange = (e) => {
+    setEmployee({ ...employee, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!employee.name.trim() || !employee.desg.trim()) {
+      setError("Please fill in both Name and Designation.");
+      return;
+    }
+
+    updateEmployee(id, employee)
+      .then(() => {
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Something went wrong while updating the employee.");
+      });
+  };
+
+  if (loading) {
+    return <div className="container mt-4">Loading...</div>;
+  }
+
+  return (
+    <div className="container mt-4">
+      <h2 className="text-center mb-4">Update Employee</h2>
+
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          {error && <div className="alert alert-danger">{error}</div>}
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Name</label>
+              <input
+                type="text"
+                className="form-control"
+                name="name"
+                value={employee.name}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Designation</label>
+              <input
+                type="text"
+                className="form-control"
+                name="desg"
+                value={employee.desg}
+                onChange={handleChange}
+              />
+            </div>
+
+            <button type="submit" className="btn btn-primary me-2">
+              Update
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => navigate("/")}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UpdateEmployee;

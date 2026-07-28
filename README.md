@@ -1,71 +1,51 @@
-# Getting Started with Create React App
+# Employee Management App (React + json-server)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ye ek React app hai jo employees ki list dikhata hai aur Add / Update / Delete / View (Info)
+ka poora CRUD support karta hai. Backend ke liye **json-server** use hota hai jo `db.json`
+file ko database ki tarah serve karta hai.
+
+## Project Structure
+- `src/components/list.js` – Employee list page (`/`)
+- `src/components/AddEmployee.js` – Add new employee (`/add`)
+- `src/components/UpdateEmployee.js` – Update employee (`/update/:id`)
+- `src/components/ViewEmployee.js` – Employee details (`/view/:id`)
+- `src/services/employeeService.js` – Axios API calls (talks to `http://localhost:4000/employees`)
+- `db.json` – Fake database used by json-server
+
+## Setup / Run karne ka tarika
+
+1. Dependencies install karein:
+   ```
+   npm install
+   ```
+
+2. **Do terminals** khol lein, kyunki 2 servers chalane honge:
+
+   **Terminal 1 – Backend API (json-server), port 4000 par:**
+   ```
+   npm run server
+   ```
+   Ye `http://localhost:4000/employees` par API serve karega.
+
+   **Terminal 2 – React app, port 3000 par:**
+   ```
+   npm start
+   ```
+   Browser me `http://localhost:3000` khul jayega.
+
+> Note: Pehle is project me React app aur API dono `localhost:3000` use kar rahe the,
+> jisse conflict ho raha tha. Ab API `port 4000` par chalta hai (json-server ke through)
+> aur React app `port 3000` par — dono alag-alag chalte hain.
+
+## Features
+- Employee list (GET)
+- Add Employee (POST) – "+ Add Employee" button se
+- Update Employee (PUT) – "Update" button se
+- Delete Employee (DELETE) – "Delete" button se (confirm dialog ke saath)
+- View Info (GET by id) – "Info" button se
 
 ## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# react" 
+- `npm start` – React dev server (port 3000)
+- `npm run server` – json-server backend (port 4000)
+- `npm run build` – Production build
+- `npm test` – Tests run karta hai

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/employees";
+const BASE_URL = "http://localhost:4000/employees";
 
 // Get all employees
 export const getAllEmployees = () => {
